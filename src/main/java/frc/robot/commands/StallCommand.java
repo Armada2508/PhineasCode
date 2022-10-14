@@ -44,7 +44,7 @@ public class StallCommand extends CommandBase {
     }
 
     private boolean stall() {
-        int range = 64; 
+        int range = 8; 
         double currentPos = subsystem.getSensorPosition();
         double targetPos = targetSupplier.getAsDouble(); 
         if (currentPos <= targetPos + range && currentPos >= targetPos - range) {

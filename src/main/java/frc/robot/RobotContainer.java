@@ -35,8 +35,8 @@ public class RobotContainer {
     public void initButtons() {
         new JoystickButton(joystick, 3).whileHeld(new ElevatorCommand(-.3, elevatorSubsystem)); // elevator down
         new JoystickButton(joystick, 4).whileHeld(new ElevatorCommand(.5, elevatorSubsystem)); // elevator up
-        new JoystickButton(joystick, 5).whileHeld(new IntakeCommand(-.25, intakeSubsystem)); // intake out
-        new JoystickButton(joystick, 6).whileHeld(new IntakeCommand(.25, intakeSubsystem)); // intake in
+        new JoystickButton(joystick, 5).whileHeld(new IntakeCommand(.5, intakeSubsystem)); // intake in
+        new JoystickButton(joystick, 6).whileHeld(new IntakeCommand(-.5, intakeSubsystem)); // intake out
     }
 
     public Command getAutoCommand() {

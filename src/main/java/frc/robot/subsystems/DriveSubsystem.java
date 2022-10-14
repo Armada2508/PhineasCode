@@ -28,6 +28,7 @@ public class DriveSubsystem extends SubsystemBase {
         TalonR = new WPI_TalonSRX(Drive.RID);
         TalonFR = new WPI_TalonSRX(Drive.RFID);
         TalonFR.follow(TalonR);
+        TalonL.setSensorPhase(true);
         TalonL.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
         TalonR.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
         TalonL.config_kP(0, .25);
@@ -39,7 +40,6 @@ public class DriveSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // System.out.println(getRightPostition());
     }
 
     public void setPower(double rightPower, double leftPower){

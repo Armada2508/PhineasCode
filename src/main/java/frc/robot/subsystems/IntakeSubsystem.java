@@ -14,7 +14,6 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem() {
         talonSRX1 = new WPI_TalonSRX(1);
         talonSRX2 = new WPI_TalonSRX(2);
-        talonSRX1.setInverted(true);
         motorGroup = new MotorControllerGroup(talonSRX1, talonSRX2);
     }
 
