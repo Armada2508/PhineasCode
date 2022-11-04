@@ -35,7 +35,6 @@ public class DriveSubsystem extends SubsystemBase {
         TalonR.config_kP(0, .25);
         TalonL.configClosedLoopPeakOutput(0, .2);
         TalonR.configClosedLoopPeakOutput(0, .2);
-        calibrate();
     }
 
     @Override
@@ -49,10 +48,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     public void setRelativePosition(double pos) { // Sets relative position in feet
         double ePos = Encoder.fromDistance(pos, Drive.encoderUnits, Drive.gearboxRatio, Drive.diameter);
-        calibrate();
-        System.out.println(ePos);
-        TalonL.set(TalonSRXControlMode.Position, ePos);
-        TalonR.set(TalonSRXControlMode.Position, ePos);
+        TalonL.set(TalonSRXControlMode.Position, ePos+TalonL.getSelectedSensorPosition());
+        TalonR.set(TalonSRXControlMode.Position, ePos+TalonR.getSelectedSensorPosition());
     }
     
     public double getleftPostition(){
@@ -63,6 +60,14 @@ public class DriveSubsystem extends SubsystemBase {
     public double getRightPostition(){
         return Encoder.toDistance(TalonR.getSelectedSensorPosition(), Drive.encoderUnits, Drive.gearboxRatio, Drive.diameter); 
         
+    }
+
+    public double getLeftSensorPostition(){
+        return TalonL.getSelectedSensorPosition(); 
+    }
+
+    public double getLeftSensorTarget() {
+        return TalonL.getClosedLoopTarget();
     }
 
     public void brake(){

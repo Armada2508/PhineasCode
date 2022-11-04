@@ -42,7 +42,6 @@ public class ElevatorSubsystem extends SubsystemBase {
 		talonSRX2.config_kF(0, Elevator.kF, driveSystemTimeoutMs);
         talonSRX2.configClosedLoopPeakOutput(0, .1, driveSystemTimeoutMs);
         targetPos = 0;
-        calibrate();
         // talonSRX1.config_IntegralZone(0, 200, 10);
     }
 

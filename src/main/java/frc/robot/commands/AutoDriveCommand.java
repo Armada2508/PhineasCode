@@ -20,7 +20,6 @@ public class AutoDriveCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        System.out.println("INITLIATINZGN");
         subsystem.setRelativePosition(distance);
     }
 
@@ -30,11 +29,17 @@ public class AutoDriveCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        subsystem.setPower(0, 0);
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        double currentPos = subsystem.getLeftSensorPostition();
+        double targetpos = subsystem.getLeftSensorTarget();
+        if (currentPos >= targetpos-250 && currentPos <= targetpos+250) {
+            return true;
+        }
+        return false;    
     }
     
 }

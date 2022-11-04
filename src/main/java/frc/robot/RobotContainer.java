@@ -3,8 +3,10 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoDriveCommand;
+import frc.robot.commands.AutoTurnCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.ElevatorCommand;
 import frc.robot.commands.IntakeCommand;
@@ -25,8 +27,10 @@ public class RobotContainer {
         driveSubsystem = new DriveSubsystem();
         elevatorSubsystem = new ElevatorSubsystem();
         intakeSubsystem = new IntakeSubsystem();
+        driveSubsystem.calibrate();
+        elevatorSubsystem.calibrate();
         // create and set default drive and elevator command
-        driveSubsystem.setDefaultCommand(new DriveCommand(() -> joystick.getRawAxis(1)*-1, () -> joystick.getRawAxis(0), driveSubsystem)); // default to driving from joystick input
+        driveSubsystem.setDefaultCommand(new DriveCommand(() -> joystick.getRawAxis(1)*-1, () -> joystick.getRawAxis(2), driveSubsystem)); // default to driving from joystick input
         elevatorSubsystem.setDefaultCommand(new StallCommand(() -> elevatorSubsystem.getTargetPosition(), elevatorSubsystem)); // default to stalling
         CameraServer.startAutomaticCapture(); // start camera
         initButtons();
@@ -40,7 +44,13 @@ public class RobotContainer {
     }
 
     public Command getAutoCommand() {
-        return new AutoDriveCommand(4, driveSubsystem);
+        return new SequentialCommandGroup(
+            new AutoDriveCommand(2, driveSubsystem),
+            new AutoTurnCommand(45, driveSubsystem),
+            new AutoDriveCommand(2, driveSubsystem),
+            new AutoTurnCommand(-45, driveSubsystem),
+            new AutoDriveCommand(2, driveSubsystem)
+        );
     }
 
 }
