@@ -39,6 +39,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        System.out.println(TalonR.getControlMode());
     }
 
     public void setPower(double rightPower, double leftPower){

@@ -1,26 +1,27 @@
-package frc.robot.commands;
+package frc.robot.commands.Driving;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoDriveCommand extends CommandBase {
 
-    double distance = 0;
+    double targetDistance = 0;
     DriveSubsystem subsystem;
 
     /**
      * Drives the robot to the relative distance at the power defined 
-     * @param distance distance to travel in feet
+     * @param distance distance to travel in feet, positive is forward, negative is backwards
     */
     public AutoDriveCommand(double distance, DriveSubsystem subsystem) {
-        this.distance = distance;
+        if (distance == 0) cancel();
+        targetDistance = distance;
         this.subsystem = subsystem;
         addRequirements(subsystem);
     }
 
     @Override
     public void initialize() {
-        subsystem.setRelativePosition(distance);
+        subsystem.setRelativePosition(targetDistance);
     }
 
     @Override

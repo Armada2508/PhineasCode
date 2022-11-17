@@ -1,12 +1,12 @@
-package frc.robot.commands;
+package frc.robot.commands.Driving;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoTurnCommand extends CommandBase {
 
-    double degrees = 0;
-    int turningConstant = 56; // trial and error found this number
+    double targetDegrees = 0;
+    int turningConstant = 54; // trial and error found this number
     double targetpos;
     DriveSubsystem subsystem;
 
@@ -15,15 +15,16 @@ public class AutoTurnCommand extends CommandBase {
      * @param degrees degrees to turn
     */
     public AutoTurnCommand(double degrees, DriveSubsystem subsystem) {
-        this.degrees = degrees;
+        if (degrees == 0) cancel();
+        targetDegrees = degrees;
         this.subsystem = subsystem;
         addRequirements(subsystem);
     }
 
     @Override
     public void initialize() {
-        targetpos = subsystem.getLeftSensorPostition() + degrees*turningConstant;
-        if (degrees > 0) {
+        targetpos = subsystem.getLeftSensorPostition() + targetDegrees*turningConstant;
+        if (targetDegrees > 0) {
             subsystem.setPower(-.25, .25);
         } else {
             subsystem.setPower(.25, -.25);

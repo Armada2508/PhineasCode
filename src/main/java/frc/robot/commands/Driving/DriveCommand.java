@@ -1,9 +1,10 @@
-package frc.robot.commands;
+package frc.robot.commands.Driving;
+
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveSubsystem;
-import java.util.function.DoubleSupplier;
 import frc.robot.Constants.Drive;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveCommand extends CommandBase{
 

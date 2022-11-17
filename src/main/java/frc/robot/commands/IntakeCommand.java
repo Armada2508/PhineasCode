@@ -7,10 +7,13 @@ public class IntakeCommand extends CommandBase {
 
     private IntakeSubsystem subsystem;
     private double power = 0;
+    private boolean auto = false;
+    private double time = 0; // in seconds
 
-    public IntakeCommand(double power, IntakeSubsystem subsystem) {
+    public IntakeCommand(double power, IntakeSubsystem subsystem, boolean auto) {
         this.power = power;
         this.subsystem = subsystem;
+        this.auto = auto;
         addRequirements(subsystem);
     }
     
@@ -21,6 +24,7 @@ public class IntakeCommand extends CommandBase {
 
     @Override
     public void execute() {
+        time += 0.020;
     }
 
     @Override
@@ -30,6 +34,7 @@ public class IntakeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
+        if (auto && time > 2.5) return true;
         return false;
     }
     
