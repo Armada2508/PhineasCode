@@ -5,9 +5,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 
 public class ElevatorCommand extends CommandBase {
 
-    private ElevatorSubsystem subsystem;
-    
     private double power = 0;
+    private ElevatorSubsystem subsystem;
 
     public ElevatorCommand(double power, ElevatorSubsystem subsystem) {
         this.power = power;

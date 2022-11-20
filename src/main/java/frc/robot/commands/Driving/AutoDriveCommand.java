@@ -5,8 +5,8 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoDriveCommand extends CommandBase {
 
-    double targetDistance = 0;
-    DriveSubsystem subsystem;
+    private double targetDistance = 0;
+    private DriveSubsystem subsystem;
 
     /**
      * Drives the robot to the relative distance at the power defined 
@@ -37,7 +37,7 @@ public class AutoDriveCommand extends CommandBase {
     public boolean isFinished() {
         double currentPos = subsystem.getLeftSensorPostition();
         double targetpos = subsystem.getLeftSensorTarget();
-        if (currentPos >= targetpos-250 && currentPos <= targetpos+250) {
+        if (currentPos >= targetpos) {
             return true;
         }
         return false;    

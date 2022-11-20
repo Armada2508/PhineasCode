@@ -5,15 +5,30 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeCommand extends CommandBase {
 
-    private IntakeSubsystem subsystem;
     private double power = 0;
-    private boolean auto = false;
-    private double time = 0; // in seconds
+    private double currentTime = 0; // in seconds
+    private double autoTime = 0; // in seconds
+    private IntakeSubsystem subsystem;
 
-    public IntakeCommand(double power, IntakeSubsystem subsystem, boolean auto) {
+    /**
+     * Runs the intake motors until interrupted
+     * @param power The power to drive the motors at between -1 and 1
+     * @param subsystem intake subsystem
+     */
+    public IntakeCommand(double power, IntakeSubsystem subsystem) {
+        this(power, subsystem, 0);
+    }
+
+    /**
+     * Runs the intake motors for the specified amount of time
+     * @param power The poewr to drive the motors at between -1 and 1
+     * @param subsystem intake subsystem
+     * @param time The time to run the intake for in seconds
+     */
+    public IntakeCommand(double power, IntakeSubsystem subsystem, double time) {
         this.power = power;
         this.subsystem = subsystem;
-        this.auto = auto;
+        autoTime = time;
         addRequirements(subsystem);
     }
     
@@ -24,7 +39,7 @@ public class IntakeCommand extends CommandBase {
 
     @Override
     public void execute() {
-        time += 0.020;
+        currentTime += 0.020;
     }
 
     @Override
@@ -34,7 +49,7 @@ public class IntakeCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (auto && time > 2.5) return true;
+        if (autoTime != 0 && currentTime >= autoTime) return true;
         return false;
     }
     

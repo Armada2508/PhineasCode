@@ -7,8 +7,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 
 public class StallCommand extends CommandBase {
 
-    private ElevatorSubsystem subsystem;
     private DoubleSupplier targetSupplier;
+    private ElevatorSubsystem subsystem;
    
     public StallCommand(DoubleSupplier targetSupplier, ElevatorSubsystem subsystem) {
         this.subsystem = subsystem;

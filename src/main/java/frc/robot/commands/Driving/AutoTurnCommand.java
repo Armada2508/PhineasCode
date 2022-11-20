@@ -5,10 +5,10 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoTurnCommand extends CommandBase {
 
-    double targetDegrees = 0;
-    int turningConstant = 54; // trial and error found this number
-    double targetpos;
-    DriveSubsystem subsystem;
+    private final int turningConstant = 54; // trial and error found this number
+    private double targetDegrees = 0;
+    private double targetpos;
+    private DriveSubsystem subsystem;
 
     /**
      * Turns the robot to the relative angle 

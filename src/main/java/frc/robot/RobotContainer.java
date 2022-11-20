@@ -10,15 +10,17 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.StallCommand;
 import frc.robot.commands.Driving.DriveCommand;
 import frc.robot.commands.Driving.MoveToRelative;
+import frc.robot.commands.Driving.MoveToRelative.EndingRotation;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class RobotContainer {
-    private Joystick joystick;
-    private DriveSubsystem driveSubsystem;
-    private ElevatorSubsystem elevatorSubsystem;
-    private IntakeSubsystem intakeSubsystem;
+
+    private final Joystick joystick;
+    private final DriveSubsystem driveSubsystem;
+    private final ElevatorSubsystem elevatorSubsystem;
+    private final IntakeSubsystem intakeSubsystem;
 
     public RobotContainer()  {
         // create joystick, drive, elevator and intake subsytem
@@ -38,14 +40,14 @@ public class RobotContainer {
     public void initButtons() {
         new JoystickButton(joystick, 3).whileHeld(new ElevatorCommand(-.3, elevatorSubsystem)); // elevator down
         new JoystickButton(joystick, 4).whileHeld(new ElevatorCommand(.5, elevatorSubsystem)); // elevator up
-        new JoystickButton(joystick, 5).whileHeld(new IntakeCommand(.5, intakeSubsystem, false)); // intake in
-        new JoystickButton(joystick, 6).whileHeld(new IntakeCommand(-.5, intakeSubsystem, false)); // intake out
+        new JoystickButton(joystick, 5).whileHeld(new IntakeCommand(.5, intakeSubsystem)); // intake in
+        new JoystickButton(joystick, 6).whileHeld(new IntakeCommand(-.5, intakeSubsystem)); // intake out
     }
 
     public Command getAutoCommand() {
         return new SequentialCommandGroup(
-            new MoveToRelative(3, 2, driveSubsystem),
-            new IntakeCommand(.5, intakeSubsystem, true)
+            new MoveToRelative(3, 2, driveSubsystem, EndingRotation.LEFT),
+            new IntakeCommand(.5, intakeSubsystem, 3)
         );
     }
 
